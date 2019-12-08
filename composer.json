@@ -1,0 +1,32 @@
+{
+    "name": "dragonrun1/uuid64type",
+    "description": "A custom Doctrine datatype for UUIDv4 values in MySQL database tables that offers a more compact format that can be useful for primary key columns.",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Michael Cummings", "email": "dragonrun1@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Uuid64Type\\": [
+                "bin/", "src/"
+            ]
+        }
+    },
+    "config": {
+        "optimize-autoloader": true, "sort-packages": true
+    },
+    "require": {
+        "php": ">=7.3,<7.5",
+        "ext-PDO": ">=1.0.0",
+        "ext-SPL": "*",
+        "ext-pdo_mysql": "*",
+        "ext-sodium": "*",
+        "doctrine/orm": "^2.7"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    }
+}
