@@ -17,3 +17,4 @@ composer.phar
 junk*.*
 test*.*
 composer.lock
+config/cli-config.php

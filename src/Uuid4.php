@@ -100,14 +100,17 @@ trait Uuid4 {
      */
     protected function asBase64(?string $data = null): string {
         $data = $this->asBinString($data);
-        $result = '';
-        // Left pad to even number of 6 bits (132) for split.
-        $binary = '0000' . $this->intoBinary($data);
-        $sixBits = \str_split($binary, 6);
-        foreach ($sixBits as $idx) {
-            $result .= self::$base64[$idx];
-        }
-        return $result;
+        return \sodium_bin2base64($data, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
+    }
+    /**
+     * @param string|null $data
+     *
+     * @return string
+     * @throws \Exception
+     */
+    protected function asHexString(?string $data = null): string {
+        $data = $this->asBinString($data);
+        return \sodium_bin2hex($data);
     }
     /**
      * Converts custom base 64 encoded UUID v4 back to binary string form.
@@ -119,27 +122,52 @@ trait Uuid4 {
      * @throws \InvalidArgumentException
      */
     protected function fromBase64ToBinString(string $data): string {
-        // Left pad with 0s and truncate to max length of UUID in base 64.
-        $data = \substr(\str_pad($data, 22, '0', \STR_PAD_LEFT), 22);
-        $base64 = \array_flip(self::$base64);
-        $result = '';
-        $binary = '';
-        // First convert to binary string.
-        foreach (\str_split($data) as $idx) {
-            if (\array_key_exists($idx, $base64)) {
-                $binary .= $base64[$idx];
-            } else {
-                $mess = 'Invalid base 64 number given';
-                throw new \InvalidArgumentException($mess);
-            }
+        if (22 !== strlen($data)) {
+            $mess = 'Expected base 64 number length of 22 characters but was length: ' . strlen($data);
+            throw new \InvalidArgumentException($mess);
         }
-        // Drop 4 left padding 0s to make 128 bits long again;
-        $binary = \substr($binary, 4);
-        // Finally convert into the binary string.
-        foreach (\str_split($binary, 8) as $value) {
-            $result .= \chr(\bindec($value));
+        /** @noinspection PhpVoidFunctionResultUsedInspection */
+        /**
+         * @var string $binary
+         */
+        $binary = \sodium_base642bin($data, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
+        if ((0x40 !== (\ord($binary[6]) & 0x40)) || (0x80 !== (\ord($binary[8]) & 0x80))) {
+            $mess = 'Not a valid UUID v4';
+            throw new \InvalidArgumentException($mess);
         }
-        return $result;
+        return $binary;
+        //// Left pad with 0s and truncate to max length of UUID in base 64.
+        //$data = \substr(\str_pad($data, 22, '0', \STR_PAD_LEFT), 0, 22);
+        //$base64 = \array_flip(self::$base64);
+        //$result = '';
+        //$binary = '';
+        //// First convert to binary string.
+        //foreach (\str_split($data) as $idx) {
+        //    if (\array_key_exists($idx, $base64)) {
+        //        $binary .= $base64[$idx];
+        //    } else {
+        //        $mess = 'Invalid base 64 number was given: ' . $idx;
+        //        throw new \InvalidArgumentException($mess);
+        //    }
+        //}
+        //// Drop 4 left padding 0s to make 128 bits long again;
+        //$binary = \substr($binary, 4);
+        //// Finally convert into the binary string.
+        //foreach (\str_split($binary, 8) as $value) {
+        //    $result .= \chr(\bindec($value));
+        //}
+        //return $result;
+    }
+    /**
+     * Converts from custom base 64 encoded UUID v4 to normal UUID v4 string.
+     *
+     * @param string $base64
+     *
+     * @return string
+     * @throws \Exception
+     */
+    protected function fromBase64ToFull(string $base64): string {
+        return $this->uuid($this->fromBase64ToBinString($base64));
     }
     /**
      * Converts normal UUID v4 into custom base 64
@@ -150,8 +178,33 @@ trait Uuid4 {
      * @throws \Exception
      */
     protected function fromFullToBase64(string $uuid): string {
+        return \sodium_bin2base64($this->fromFullToBinString($uuid), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
+    }
+    /**
+     * @param string $uuid
+     *
+     * @return string
+     */
+    protected function fromFullToBinString(string $uuid): string {
         $binary = \sodium_hex2bin($uuid, '{-}');
-        return $this->asBase64($binary);
+        if (16 !== strlen($binary)) {
+            $mess = 'Expected binary string length to be 16 characters but was length: ' . \strlen($binary);
+            throw new \InvalidArgumentException($mess);
+        }
+        if ((0x40 !== (\ord($binary[6]) & 0x40)) || (0x80 !== (\ord($binary[8]) & 0x80))) {
+            $mess = 'Not a valid UUID v4';
+            throw new \InvalidArgumentException($mess);
+        }
+        return $binary;
+    }
+    /**
+     * @param string $hex
+     *
+     * @return string
+     * @throws \Exception
+     */
+    protected function fromHexStringToBase64(string $hex): string {
+        return $this->fromFullToBase64($hex);
     }
     /**
      * Generates a random uuid in full format.
@@ -175,8 +228,7 @@ trait Uuid4 {
      * sufficient entropy in random_bytes().
      */
     protected function uuid(?string $data = null): string {
-        $data = $this->asBinString($data);
-        return \vsprintf('%s%s-%s-%s-%s-%s%s%s', \str_split(\bin2hex($data), 4));
+        return \vsprintf('%s%s-%s-%s-%s-%s%s%s', \str_split($this->asHexString($data), 4));
     }
     /**
      * Helper method for the common parts of creating new UUID in binary form.
@@ -198,90 +250,4 @@ trait Uuid4 {
         $data[8] = \chr(\ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
         return $data;
     }
-    /**
-     * Converts long binary string (byte stream) into a series of 1s and 0s.
-     *
-     * Needed to work around 32/64-bit integer size limits found in PHP's
-     * built-in functions like `decbin()`.
-     *
-     * @param string $data Long binary string to be converted.
-     *
-     * @return string Return to a series of 1s and 0s as a string.
-     */
-    private function intoBinary(string $data): string {
-        $result = '';
-        foreach (\str_split($data) as $byte) {
-            $result .= \str_pad(\decbin(\ord($byte)), 8, '0', \STR_PAD_LEFT);
-        }
-        return $result;
-    }
-    /**
-     * @var array $base64
-     */
-    private static $base64 = [
-        '000000' => '0',
-        '000001' => '1',
-        '000010' => '2',
-        '000011' => '3',
-        '000100' => '4',
-        '000101' => '5',
-        '000110' => '6',
-        '000111' => '7',
-        '001000' => '8',
-        '001001' => '9',
-        '001010' => 'a',
-        '001011' => 'b',
-        '001100' => 'c',
-        '001101' => 'd',
-        '001110' => 'e',
-        '001111' => 'f',
-        '010000' => 'g',
-        '010001' => 'h',
-        '010010' => 'i',
-        '010011' => 'j',
-        '010100' => 'k',
-        '010101' => 'l',
-        '010110' => 'm',
-        '010111' => 'n',
-        '011000' => 'o',
-        '011001' => 'p',
-        '011010' => 'q',
-        '011011' => 'r',
-        '011100' => 's',
-        '011101' => 't',
-        '011110' => 'u',
-        '011111' => 'v',
-        '100000' => 'w',
-        '100001' => 'x',
-        '100010' => 'y',
-        '100011' => 'z',
-        '100100' => 'A',
-        '100101' => 'B',
-        '100110' => 'C',
-        '100111' => 'D',
-        '101000' => 'E',
-        '101001' => 'F',
-        '101010' => 'G',
-        '101011' => 'H',
-        '101100' => 'I',
-        '101101' => 'J',
-        '101110' => 'K',
-        '101111' => 'L',
-        '110000' => 'M',
-        '110001' => 'N',
-        '110010' => 'O',
-        '110011' => 'P',
-        '110100' => 'Q',
-        '110101' => 'R',
-        '110110' => 'S',
-        '110111' => 'T',
-        '111000' => 'U',
-        '111001' => 'V',
-        '111010' => 'W',
-        '111011' => 'X',
-        '111100' => 'Y',
-        '111101' => 'Z',
-        '111110' => '_',
-        '111111' => '-',
-    ];
 }
