@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUndefinedMethodInspection */
 declare(strict_types=1);
 /**
  * PHP version 7.3
@@ -54,10 +55,10 @@ require_once __DIR__ . '/bootstrap.php';
 $generator = new class {
     use Uuid4;
     public function __invoke() {
-        $bin = $this->asBinString();
-        $base64 = $this->asBase64($bin);
-        $hex = $this->asHexString($bin);
-        $uuid4 = $this->uuid($bin);
+        $bin = self::asBinString();
+        $base64 = self::asBase64($bin);
+        $hex = self::asHexString($bin);
+        $uuid4 = self::uuid($bin);
         return [$base64, $uuid4, $hex, $bin];
     }
 };

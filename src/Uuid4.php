@@ -98,8 +98,8 @@ trait Uuid4 {
      * @throws \Exception Throws an Exception if it was not possible to gather
      * sufficient entropy in random_bytes().
      */
-    protected function asBase64(?string $data = null): string {
-        $data = $this->asBinString($data);
+    protected static function asBase64(?string $data = null): string {
+        $data = self::asBinString($data);
         return \sodium_bin2base64($data, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
     }
     /**
@@ -108,8 +108,8 @@ trait Uuid4 {
      * @return string
      * @throws \Exception
      */
-    protected function asHexString(?string $data = null): string {
-        $data = $this->asBinString($data);
+    protected static function asHexString(?string $data = null): string {
+        $data = self::asBinString($data);
         return \sodium_bin2hex($data);
     }
     /**
@@ -121,7 +121,7 @@ trait Uuid4 {
      * as 16 characters (bytes).
      * @throws \InvalidArgumentException
      */
-    protected function fromBase64ToBinString(string $data): string {
+    protected static function fromBase64ToBinString(string $data): string {
         if (22 !== strlen($data)) {
             $mess = 'Expected base 64 number length of 22 characters but was length: ' . strlen($data);
             throw new \InvalidArgumentException($mess);
@@ -136,27 +136,6 @@ trait Uuid4 {
             throw new \InvalidArgumentException($mess);
         }
         return $binary;
-        //// Left pad with 0s and truncate to max length of UUID in base 64.
-        //$data = \substr(\str_pad($data, 22, '0', \STR_PAD_LEFT), 0, 22);
-        //$base64 = \array_flip(self::$base64);
-        //$result = '';
-        //$binary = '';
-        //// First convert to binary string.
-        //foreach (\str_split($data) as $idx) {
-        //    if (\array_key_exists($idx, $base64)) {
-        //        $binary .= $base64[$idx];
-        //    } else {
-        //        $mess = 'Invalid base 64 number was given: ' . $idx;
-        //        throw new \InvalidArgumentException($mess);
-        //    }
-        //}
-        //// Drop 4 left padding 0s to make 128 bits long again;
-        //$binary = \substr($binary, 4);
-        //// Finally convert into the binary string.
-        //foreach (\str_split($binary, 8) as $value) {
-        //    $result .= \chr(\bindec($value));
-        //}
-        //return $result;
     }
     /**
      * Converts from custom base 64 encoded UUID v4 to normal UUID v4 string.
@@ -166,8 +145,8 @@ trait Uuid4 {
      * @return string
      * @throws \Exception
      */
-    protected function fromBase64ToFull(string $base64): string {
-        return $this->uuid($this->fromBase64ToBinString($base64));
+    protected static function fromBase64ToFull(string $base64): string {
+        return self::uuid(Uuid4::fromBase64ToBinString($base64));
     }
     /**
      * Converts normal UUID v4 into custom base 64
@@ -177,15 +156,15 @@ trait Uuid4 {
      * @return string
      * @throws \Exception
      */
-    protected function fromFullToBase64(string $uuid): string {
-        return \sodium_bin2base64($this->fromFullToBinString($uuid), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
+    protected static function fromFullToBase64(string $uuid): string {
+        return \sodium_bin2base64(self::fromFullToBinString($uuid), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
     }
     /**
      * @param string $uuid
      *
      * @return string
      */
-    protected function fromFullToBinString(string $uuid): string {
+    protected static function fromFullToBinString(string $uuid): string {
         $binary = \sodium_hex2bin($uuid, '{-}');
         if (16 !== strlen($binary)) {
             $mess = 'Expected binary string length to be 16 characters but was length: ' . \strlen($binary);
@@ -203,8 +182,8 @@ trait Uuid4 {
      * @return string
      * @throws \Exception
      */
-    protected function fromHexStringToBase64(string $hex): string {
-        return $this->fromFullToBase64($hex);
+    protected static function fromHexStringToBase64(string $hex): string {
+        return Uuid4::fromFullToBase64($hex);
     }
     /**
      * Generates a random uuid in full format.
@@ -227,8 +206,8 @@ trait Uuid4 {
      * @throws \Exception Throws an Exception if it was not possible to gather
      * sufficient entropy in random_bytes().
      */
-    protected function uuid(?string $data = null): string {
-        return \vsprintf('%s%s-%s-%s-%s-%s%s%s', \str_split($this->asHexString($data), 4));
+    protected static function uuid(?string $data = null): string {
+        return \vsprintf('%s%s-%s-%s-%s-%s%s%s', \str_split(self::asHexString($data), 4));
     }
     /**
      * Helper method for the common parts of creating new UUID in binary form.
@@ -241,7 +220,7 @@ trait Uuid4 {
      * @throws \Exception Throws an Exception if it was not possible to gather
      * sufficient entropy in random_bytes().
      */
-    private function asBinString(?string $data = null): string {
+    protected static function asBinString(?string $data = null): string {
         $data = $data ?? \random_bytes(16);
         // Left pad string to 16 chars using ascii code 0 if short else
         // truncate strings longer then 16 chars.

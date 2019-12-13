@@ -70,6 +70,6 @@ class Uuid64Generator extends AbstractIdGenerator {
      * @throws \Exception
      */
     public function generate(EntityManager $em, $entity) {
-        return $this->asBase64();
+        return self::asBase64();
     }
 }
