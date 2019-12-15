@@ -63,6 +63,8 @@ class Uuid64Generator extends AbstractIdGenerator {
     /**
      * Generates an identifier for an entity.
      *
+     * TODO: Need to check for extremely rare case of duplicate random key some how.
+     *
      * @param EntityManager $em
      * @param object|null   $entity
      *
