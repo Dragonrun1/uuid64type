@@ -71,5 +71,5 @@ trait Uuid64Id {
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Uuid64Type\Entity\Uuid64Generator")
      */
-    private $id;
+    protected $id;
 }
