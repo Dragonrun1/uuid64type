@@ -53,13 +53,13 @@ namespace Uuid64Type\Type;
 
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\BinaryType;
+use Doctrine\DBAL\Types\StringType;
 use Uuid64Type\Uuid4;
 
 /**
  * Custom doctrine UUID v4 (random) datatype using custom base 64 encoding.
  */
-class Uuid64Type extends BinaryType {
+class Uuid64Type extends StringType {
     use Uuid4;
     public const UUID64 = 'uuid64';
     /**

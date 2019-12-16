@@ -66,7 +66,7 @@ trait Uuid64Id {
     /**
      * @var string
      *
-     * @ORM\Column(type="uuid64", nullable=false, options={"fixed":true})
+     * @ORM\Column(type="uuid64", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Uuid64Type\Entity\Uuid64Generator")
