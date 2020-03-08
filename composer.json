@@ -3,17 +3,18 @@
     "description": "A custom Doctrine datatype for UUIDv4 values in MySQL database tables that offers a more compact format that can be useful for primary key columns.",
     "type": "library",
     "license": "BSD-3-Clause",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Michael Cummings", "email": "dragonrun1@gmail.com"
         }
-    ], "autoload": {
-    "psr-4": {
-        "Uuid64Type\\": [
-            "bin/", "src/"
-        ]
-    }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Uuid64Type\\": [
+                "bin/", "src/"
+            ]
+        }
 }, "bin": "bin/Uuid64", "config": {
     "optimize-autoloader": true, "sort-packages": true
 }, "require": {
