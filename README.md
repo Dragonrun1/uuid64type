@@ -1,5 +1,7 @@
 # Uuid64Type
 
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
+
 A custom Doctrine datatype for UUIDv4 values in database tables that
 offers a more compact format that can be useful for primary key columns. Also,
 includes helper traits to make integration easier.
