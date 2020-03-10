@@ -1,6 +1,6 @@
 # Uuid64Type
 
-A custom Doctrine datatype for UUIDv4 values in MySQL database tables that
+A custom Doctrine datatype for UUIDv4 values in database tables that
 offers a more compact format that can be useful for primary key columns. Also,
 includes helper traits to make integration easier.
 
@@ -14,6 +14,10 @@ composer require dragonrun1/uuid64type
 ```
 
 ## Usage
+
+For an example of integrating with Doctrine cli configuration have a look at:
+
+`config/example-cli-config.php`
 
 For examples of using Uuid64Type in a Doctrine project see my related project on
 github:
@@ -36,7 +40,7 @@ typically generate their IDs which I'll detail next.
 
 ### Database Engine Limitation
 
-Database engines be they MySQL, SQLSRV, DB2, or PostgresSQL all have
+Database engines be they MySQL, PostgreSQL, SQLite, or any other all have
 some way to generate sequences for ID columns. How they do it is nearly
 as varies as the engines themselves since ID generation falls outside of the
 existing SQL standards, but the end result is generally the same in that you end
@@ -68,7 +72,7 @@ access. I'm sure you can think of many other ways that simple incremental
 sequences could be attacked that you probably never thought of before I
 pointed out the risks.
 
-## Custom base 64 encoding of UUID v4 (random).
+### Custom base 64 encoding of UUID v4 (random).
 
 Expected use will be in Doctrine entities instead of using auto-increment IDs.
 
@@ -104,6 +108,11 @@ format:
     space either.
 
 ## Contributing
+
+Please note that this project has a
+[Contributor Code of Conduct](CODE_OF_CONDUCT.md).
+By participating in this project you agree to abide by its terms.
+
 Pull requests are welcome. For major changes, please open an issue first to
 discuss what you would like to change.
 
@@ -112,19 +121,19 @@ Please make sure to update or add tests as appropriate.
 ## License
 [BSD-3-Clause](https://spdx.org/licenses/BSD-3-Clause.html)
 
-Copyright (c) 2020 Michael Cummings. All rights reserved.
+Copyright (c) 2019 Michael Cummings. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
 
-    1. Redistributions of source code must retain the above copyright notice,
-    this list of conditions and the following disclaimer.
-    2. Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
-    3. Neither the name of the copyright holder nor the names of its
-    contributors may be used to endorse or promote products derived from this
-    software without specific prior written permission.
+1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its
+contributors may be used to endorse or promote products derived from this
+software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
