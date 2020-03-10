@@ -3,7 +3,7 @@
     "description": "A custom Doctrine datatype for UUIDv4 values in database tables that offers a more compact format that can be useful for primary key columns.",
     "type": "library",
     "license": "BSD-3-Clause",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "authors": [
         {
             "name": "Michael Cummings", "email": "dragonrun1@gmail.com"
