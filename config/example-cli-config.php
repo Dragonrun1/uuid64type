@@ -63,6 +63,7 @@ use Uuid64Type\Type\Uuid64Type;
 // --snip--
 // Example of your possible existing code to create an EntityManager instance ...
 $isDevMode = true;
+// MySQL
 $dbParams = [
     'charset' => 'utf8mb4',
     'collate' => 'utf8mb4_general_ci',
@@ -72,6 +73,21 @@ $dbParams = [
     'password' => 'secret',
     'user' => 'user',
 ];
+// Postgres
+//$dbParams = [
+//    'dbname' => 'my_db',
+//    'driver' => 'pdo_pgsql',
+//    'host' => 'localhost',
+//    'password' => 'secret',
+//    'user' => 'user',
+//];
+// SQLite
+//$dbParams = [
+//    'driver' => 'pdo_sqlite',
+//    'memory' => true,
+//    // NOTE: if path is set the memory setting is ignore by the driver.
+//    'path'=>'my_db.sq3'
+//];
 $paths = [\dirname(__DIR__, 1) . '/src/Entity'];
 try {
     $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
@@ -87,6 +103,7 @@ try {
     print $e->getTraceAsString();
     exit(1);
 }
+// --snip--
 // --snip--
 // Code to get DB connection from EntityManager.
 $conn = $em->getConnection();
