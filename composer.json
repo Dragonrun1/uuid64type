@@ -21,9 +21,10 @@
         "optimize-autoloader": true, "sort-packages": true
     },
     "require": {
-        "php": ">=7.3,<7.5",
+        "php-64bit": ">=7.3,<7.5",
         "ext-PDO": ">=1.0.0",
         "ext-SPL": "*",
+        "ext-mbstring": "*",
         "ext-pdo_mysql": "*",
         "ext-sodium": "*",
         "doctrine/orm": "^2.7"
