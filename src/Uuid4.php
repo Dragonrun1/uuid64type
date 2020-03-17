@@ -123,32 +123,62 @@ trait Uuid4 {
         return $hexString;
     }
     /**
-     * Converts custom base 64 encoded UUID v4 back to binary string form.
+     * Generate a standard UUID v4 (random).
      *
-     * @param string $data
+     * Original code for the function was found in answer at
+     * https://stackoverflow.com/questions/2040240/php-function-to-generate-v4-uuid
+     * by Arie which is based on a function found at
+     * http://php.net/manual/en/function.com-create-guid.php
+     * by pavel.volyntsev(at)gmail.
+     * I've farther changed it to allow parameter to be optional based on a
+     * comment by Stephen R from the first page.
      *
-     * @return string The returned string is actually a 128-bit binary string
-     * as 16 characters (bytes).
-     * @throws \InvalidArgumentException
+     * Many other changes since the above code and changes.
+     *
+     * @param array|null $data  Should normally be `null` to create a truly
+     *                          random v4 UUID.
+     *
+     * @return string Returns a standard UUID v4.
+     * @throws \Exception
      */
-    protected static function fromBase64ToBinString(string $data): string {
-        if (22 !== strlen($data)) {
-            $mess = 'Expected base 64 number length of 22 characters but was length: ' . strlen($data);
-            throw new \InvalidArgumentException($mess);
-        }
-        /** @noinspection PhpVoidFunctionResultUsedInspection */
-        /**
-         * @var string $binary
-         */
-        $binary = \sodium_base642bin($data, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
-        if ((0x40 !== (\ord($binary[6]) & 0x40)) || (0x80 !== (\ord($binary[8]) & 0x80))) {
-            $mess = 'Not a valid UUID v4';
-            throw new \InvalidArgumentException($mess);
-        }
-        return $binary;
+    protected static function asUuid(?array $data = null): string {
+        $hex = static::asHexString($data);
+        return \vsprintf('%s%s-%s-%s-%s-%s%s%s', \str_split($hex, 4));
     }
     /**
-     * Converts from custom base 64 encoded UUID v4 to normal UUID v4 string.
+     * Convert from a base 64 encoded to a hexadecimal encoded UUID.
+     *
+     * NOTE: This method does not verify input is valid UUID.
+     *
+     * @param string $data A base 64 encoded UUID.
+     *
+     * @return string Returns a hexadecimal encoded UUID.
+     */
+    protected static function fromBase64ToHexString(string $data): string {
+        if (22 !== \strlen($data)) {
+            $mess = 'Expected base 64 number length of 22 characters but was given length: ' . \strlen($data);
+            throw new \LengthException($mess);
+        }
+        // Need switched keys and values so reverse lookups can be done.
+        $flipped = \array_flip(static::$base64);
+        $binString = '';
+        for ($i = 0, $len = \strlen($data); $i < $len; ++$i) {
+            $binString .= $flipped[$data[$i]];
+        }
+        // Cut off 4 bit zero padding.
+        $binString = \substr($binString, -128);
+        $hexString = '';
+        $pieces = \str_split($binString, 32);
+        foreach ($pieces as $piece) {
+            $hexString .= \str_pad(\base_convert($piece, 2, 16), 8, '0', STR_PAD_LEFT);
+            //$hexString .= \str_pad(\dechex(\bindec($piece)), 8, '0', STR_PAD_LEFT);
+        }
+        return $hexString;
+    }
+    /**
+     * Convert from a base 64 encoded to a standard UUID.
+     *
+     * NOTE: This method does not verify input is valid UUID.
      *
      * @param string $data The base 64 encoded UUID.
      *
@@ -158,34 +188,6 @@ trait Uuid4 {
     protected static function fromBase64ToUuid(string $data): string {
         $hexString = static::fromBase64ToHexString($data);
         return static::fromHexStringToUuid($hexString);
-    }
-    /**
-     * Converts normal UUID v4 into custom base 64
-     *
-     * @param string $uuid
-     *
-     * @return string
-     * @throws \Exception
-     */
-    protected static function fromFullToBase64(string $uuid): string {
-        return \sodium_bin2base64(self::fromFullToBinString($uuid), SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
-    }
-    /**
-     * @param string $uuid
-     *
-     * @return string
-     */
-    protected static function fromFullToBinString(string $uuid): string {
-        $binary = \sodium_hex2bin($uuid, '{-}');
-        if (16 !== strlen($binary)) {
-            $mess = 'Expected binary string length to be 16 characters but was length: ' . \strlen($binary);
-            throw new \InvalidArgumentException($mess);
-        }
-        if ((0x40 !== (\ord($binary[6]) & 0x40)) || (0x80 !== (\ord($binary[8]) & 0x80))) {
-            $mess = 'Not a valid UUID v4';
-            throw new \InvalidArgumentException($mess);
-        }
-        return $binary;
     }
     /**
      * Convert from a hexadecimal encoded to a base 64 encoded UUID.
@@ -216,48 +218,34 @@ trait Uuid4 {
         return $result;
     }
     /**
-     * Generates a random uuid in full format.
+     * Convert from a hexadecimal encoded to a standard UUID.
      *
-     * Original code for the function was found in answer at
-     * https://stackoverflow.com/questions/2040240/php-function-to-generate-v4-uuid
-     * by Arie which is based on a function found at
-     * http://php.net/manual/en/function.com-create-guid.php
-     * by pavel.volyntsev(at)gmail.
-     * I've farther changed it to allow parameter to be optional based on a
-     * comment by Stephen R from the first page.
+     * NOTE: This method does not verify input is valid UUID.
      *
-     * Finally made it into a trait to make adding it to classes easier and
-     * renamed it as well.
+     * @param string $data The hexadecimal encoded UUID.
      *
-     * @param string|null $data Should normally be `null` to create a truly
-     *                          random v4 UUID.
-     *
-     * @return string
-     * @throws \Exception Throws an Exception if it was not possible to gather
-     * sufficient entropy in random_bytes().
+     * @return string Returns a standard UUID.
      */
-    protected static function uuid(?string $data = null): string {
-        return \vsprintf('%s%s-%s-%s-%s-%s%s%s', \str_split(self::asHexString($data), 4));
+    protected static function fromHexStringToUuid(string $data): string {
+        if (32 !== \strlen($data)) {
+            $mess = 'Expected hex string length of 32 characters but was given length: ' . \strlen($data);
+            throw new \InvalidArgumentException($mess);
+        }
+        return \vsprintf('%s%s-%s-%s-%s-%s%s%s', \str_split($data, 4));
     }
     /**
-     * Helper method for the common parts of creating new UUID in binary form.
+     * Convert from a standard UUID to a base 64 encoded UUID.
      *
-     * @param string|null $data Should normally be `null` to create a truly
-     *                          random v4 UUID.
+     * NOTE: This method does not verify input is valid UUID.
      *
-     * @return string The returned string is actually a 128-bit binary string
-     * as 16 characters (bytes).
-     * @throws \Exception Throws an Exception if it was not possible to gather
-     * sufficient entropy in random_bytes().
+     * @param string $data The standard UUID.
+     *
+     * @return string Returns base 64 encoded UUID.
+     * @throws \Exception
      */
-    protected static function asBinString(?string $data = null): string {
-        $data = $data ?? \random_bytes(16);
-        // Left pad string to 16 chars using ascii code 0 if short else
-        // truncate strings longer then 16 chars.
-        $data = \substr(\str_pad($data, 16, \chr(0), \STR_PAD_LEFT), 0, 16);
-        $data[6] = \chr(\ord($data[6]) & 0x0f | 0x40); // set version to 0100 (4 - random)
-        $data[8] = \chr(\ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
-        return $data;
+    protected static function fromUuidToBase64(string $data): string {
+        $hexString = \str_replace('-', '', $data);
+        return static::fromHexStringToBase64($hexString);
     }
     /**
      * Convert from a standard UUID to a hexadecimal encoded UUID.
