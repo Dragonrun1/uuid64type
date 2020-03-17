@@ -56,42 +56,10 @@ namespace Uuid64Type;
  */
 trait Uuid4 {
     /**
-     * Custom base 64 encoding of UUID v4 (random).
+     * Generate a custom base 64 encoded UUID v4 (random).
      *
-     * Expected use will be in Doctrine entities instead of using auto-increment IDs.
      *
-     * A UUID is 128-bits long in binary so most programming language can only
-     * support it in some kind of string or integer array format. Most commonly
-     * a binary string is used for compactness where strings can contain (nul)
-     * chars. This format is rarely seen except in functions were the UUID is
-     * being created as it's hard for programmers to work with since can't be
-     * visualized easily. The normal formatted string version with 36
-     * characters or as a hexadecimal string with 32 characters are much more
-     * commonly used. Both of these formats trade off two times or more memory
-     * use to make them easier to work with. By using a base 64 encoding it will
-     * increases the memory usage by less than 40 percent (22 chars) over a
-     * binary string (16 chars).
-     *
-     * So in summary these are the benefits to using this custom base 64 encoded
-     * format:
-     *
-     *   * Database compatible - Can be directly stored in any of VARCHAR,
-     *     CHAR, BINARY, etc field types.
-     *   * URL compatible - Doesn't contain any chars that require special
-     *     escaping in URLs.
-     *   * HTML compatible - Doesn't include any special chars that need to be
-     *     escaped when used in html forms or tag property values. HTML 5
-     *     relaxed the rule that required the id's property value have to start
-     *     with a letter.
-     *   * More Human readable - Base 64 being shorter that other formats
-     *     generally make it more readable to most people.
-     *   * Best memory to speed trade-off - The binary string takes up the
-     *     least memory but it needs to be converted to and from other formats
-     *     when using it in URLs etc. which can cause un-needed server load
-     *     issues. The normal and hexadecimal forms are both longer which adds
-     *     to both memory and server load issues.
-     *
-     * @param string|null $data Should normally be `null` to create a truly
+     * @param array|null $data  Should normally be `null` to create a truly
      *                          random v4 UUID.
      *
      * @return string Returns custom base 64 encoded UUID v4 as string.
