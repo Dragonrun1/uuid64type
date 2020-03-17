@@ -104,14 +104,23 @@ trait Uuid4 {
         return $binary;
     }
     /**
-     * @param string|null $data
+     * Generate a hexadecimal encoded UUID v4 (random).
      *
-     * @return string
+     * @param array|null $data Should normally be `null` to create a truly
+     *                         random v4 UUID.
+     *
+     * @return string Returns a hexadecimal encoded UUID v4.
      * @throws \Exception
      */
-    protected static function asHexString(?string $data = null): string {
-        $data = self::asBinString($data);
-        return \sodium_bin2hex($data);
+    protected static function asHexString(?array $data = null): string {
+        $binString = self::asBinString($data);
+        $hexString = '';
+        $pieces = \str_split($binString, 32);
+        foreach ($pieces as $piece) {
+            $hexString .= \str_pad(\base_convert($piece, 2, 16), 8, '0', STR_PAD_LEFT);
+            //$hexString .= \str_pad(\dechex(\bindec($piece)), 8, '0', STR_PAD_LEFT);
+        }
+        return $hexString;
     }
     /**
      * Converts custom base 64 encoded UUID v4 back to binary string form.
