@@ -150,13 +150,14 @@ trait Uuid4 {
     /**
      * Converts from custom base 64 encoded UUID v4 to normal UUID v4 string.
      *
-     * @param string $base64
+     * @param string $data The base 64 encoded UUID.
      *
-     * @return string
+     * @return string Returns a standard UUID.
      * @throws \Exception
      */
-    protected static function fromBase64ToFull(string $base64): string {
-        return self::uuid(Uuid4::fromBase64ToBinString($base64));
+    protected static function fromBase64ToUuid(string $data): string {
+        $hexString = static::fromBase64ToHexString($data);
+        return static::fromHexStringToUuid($hexString);
     }
     /**
      * Converts normal UUID v4 into custom base 64
@@ -187,13 +188,32 @@ trait Uuid4 {
         return $binary;
     }
     /**
-     * @param string $hex
+     * Convert from a hexadecimal encoded to a base 64 encoded UUID.
      *
-     * @return string
+     * NOTE: This method does not verify input is valid UUID.
+     *
+     * @param string $data The hexadecimal encoded UUID.
+     *
+     * @return string Returns base 64 encoded UUID.
      * @throws \Exception
      */
-    protected static function fromHexStringToBase64(string $hex): string {
-        return Uuid4::fromFullToBase64($hex);
+    protected static function fromHexStringToBase64(string $data): string {
+        if (32 !== \strlen($data)) {
+            $mess = 'Expected hex string length of 32 characters but was given length: ' . \strlen($data);
+            throw new \InvalidArgumentException($mess);
+        }
+        $hexArray = \str_split($data, 8);
+        $binString = '0000';
+        foreach ($hexArray as $hex) {
+            $binString .= \str_pad(\base_convert($hex, 16, 2), 32, '0', STR_PAD_LEFT);
+            //$binString .= \str_pad(\decbin(\hexdec($hex)), 32, '0', STR_PAD_LEFT);
+        }
+        $result = '';
+        $pieces = \str_split($binString, 6);
+        foreach ($pieces as $piece) {
+            $result .= static::$base64[$piece];
+        }
+        return $result;
     }
     /**
      * Generates a random uuid in full format.
