@@ -2,9 +2,9 @@
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
-A custom Doctrine datatype for UUIDv4 values in database tables that
-offers a more compact format that can be useful for primary key columns. Also,
-includes helper traits to make integration easier.
+An UUID v4 (random) library with a new custom compact format for use in database
+primary keys.
+It also includes helper traits to make integration easier in Doctrine.
 
 ## Installation
 
@@ -26,26 +26,26 @@ github:
 
 [person_db_skeleton](https://github.com/Dragonrun1/person_db_skeleton)
 
-Look at the `config/cli-config.php` for how to register the custom type in
-Doctrine.
+Have a look at the `config/cli-config.php` for how to register the custom type
+in Doctrine.
 
-See any of the `src/Model/Entities/*` table class files for using the helper
+See one of the `src/Model/Entities/*` table class files for using the helper
 traits etc.
 
 ## Why make this project?
 
-If this project was just another UUID v4 (random) library there would be
-little point as there are already several fine ones out there for PHP,
-but where they just do UUIDs this library tries to solve a limitation in
-common database designs as well. The limitation is how database engines
-typically generate their IDs which I'll detail next.
+There already exists several fine UUID v4 (random) libraries for PHP, so it
+would make little sense to make another one if that was all it did.
+In addition to UUIDs this library tries to solve a limitation in database
+designs.
+I'll detail the database limitation this library tries to overcome next.
 
 ### Database Engine Limitation
 
 Database engines be they MySQL, PostgreSQL, SQLite, or any other all have
 some way to generate sequences for ID columns. How they do it is nearly
 as varies as the engines themselves since ID generation falls outside of the
-existing SQL standards, but the end result is generally the same in that you end
+existing SQL standards, but the result is generally the same in that you end
 up with a simple auto-incrementing integer sequence. So where does the
 limitation come in and how is it bad? Two words: auto-incrementing and sequence.
 Add two more words: bad actors. Combining these four words and some of you may
@@ -76,7 +76,8 @@ pointed out the risks.
 
 ### Custom base 64 encoding of UUID v4 (random).
 
-Expected use will be in Doctrine entities instead of using auto-increment IDs.
+An expected use would be in Doctrine entities instead of using auto-increment
+IDs.
 
 A UUID is 128-bits long in binary and, most programming language can only
 support it in some kind of string or integer array format. Most commonly binary
@@ -115,8 +116,8 @@ Please note that this project has a
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
 By participating in this project you agree to abide by its terms.
 
-Pull requests are welcome. For major changes, please open an issue first to
-discuss what you would like to change.
+Pull requests are always welcome. For major changes, please open an issue first
+to discuss what you would like to change.
 
 Please make sure to update or add tests as appropriate.
 
