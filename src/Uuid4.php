@@ -157,7 +157,7 @@ trait Uuid4 {
     protected static function fromBase64ToHexString(string $data): string {
         if (22 !== \strlen($data)) {
             $mess = 'Expected base 64 number length of 22 characters but was given length: ' . \strlen($data);
-            throw new \LengthException($mess);
+            throw new \InvalidArgumentException($mess);
         }
         // Need switched keys and values so reverse lookups can be done.
         $flipped = \array_flip(static::$base64);
@@ -171,7 +171,6 @@ trait Uuid4 {
         $pieces = \str_split($binString, 32);
         foreach ($pieces as $piece) {
             $hexString .= \str_pad(\base_convert($piece, 2, 16), 8, '0', STR_PAD_LEFT);
-            //$hexString .= \str_pad(\dechex(\bindec($piece)), 8, '0', STR_PAD_LEFT);
         }
         return $hexString;
     }
