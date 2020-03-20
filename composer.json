@@ -3,45 +3,53 @@
     "description": "A custom Doctrine datatype for UUIDv4 values in database tables that offers a more compact format that can be useful for primary key columns.",
     "type": "library",
     "license": "BSD-3-Clause",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "authors": [
         {
             "name": "Michael Cummings", "email": "dragonrun1@gmail.com"
         }
-    ], "autoload": {
-    "psr-4": {
-        "Uuid64Type\\": [
-            "bin/", "src/"
-        ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Uuid64Type\\": [
+                "bin/", "src/"
+            ]
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "Spec\\": "spec/Spec/"
+        }
+    },
+    "bin": "bin/Uuid64",
+    "config": {
+        "optimize-autoloader": true, "sort-packages": true
+    },
+    "require": {
+        "php-64bit": ">=7.3,<7.5",
+        "ext-PDO": ">=1.0.0",
+        "ext-SPL": "*",
+        "ext-mbstring": "*",
+        "ext-pdo_mysql": "*",
+        "doctrine/orm": "^2.7"
+    },
+    "require-dev": {
+        "friends-of-phpspec/phpspec-code-coverage": "^4.3",
+        "phpspec/phpspec": "^6.1",
+        "roave/security-advisories": "dev-master"
+    },
+    "scripts": {
+        "clover": "phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_clover.yaml",
+        "coverage": "phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_coverage.yaml",
+        "coverage-pcov": "@php -d extension=pcov -d pcov.enable=1 vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_coverage.yaml",
+        "generate": "@php bin/Uuid64.php",
+        "test": "phpspec run --ansi"
+    },
+    "scripts-descriptions": {
+        "clover": "Runs the phpspec tests with code coverage output to coverage/clover.xml file.",
+        "coverage": "Runs the phpspec tests with code coverage using phpdbg.",
+        "coverage-pcov": "Runs the phpspec tests with code coverage using the pcov extension.",
+        "generate": "Manually generate UUIDs in several formats.",
+        "test": "Runs the phpspec tests."
     }
-}, "autoload-dev": {
-    "psr-0": {
-        "Spec\\": "spec/Spec/"
-    }
-}, "bin": "bin/Uuid64", "config": {
-    "optimize-autoloader": true, "sort-packages": true
-}, "require": {
-    "php-64bit": ">=7.3,<7.5",
-    "ext-PDO": ">=1.0.0",
-    "ext-SPL": "*",
-    "ext-mbstring": "*",
-    "ext-pdo_mysql": "*",
-    "doctrine/orm": "^2.7"
-}, "require-dev": {
-    "friends-of-phpspec/phpspec-code-coverage": "^4.3",
-    "phpspec/phpspec": "^6.1",
-    "roave/security-advisories": "dev-master"
-}, "scripts": {
-    "clover": "phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_clover.yaml",
-    "coverage": "phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_coverage.yaml",
-    "coverage-pcov": "@php -d extension=pcov -d pcov.enable=1 vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_coverage.yaml",
-    "generate": "@php bin/Uuid64.php",
-    "test": "phpspec run --ansi"
-}, "scripts-descriptions": {
-    "clover": "Runs the phpspec tests with code coverage output to coverage/clover.xml file.",
-    "coverage": "Runs the phpspec tests with code coverage using phpdbg.",
-    "coverage-pcov": "Runs the phpspec tests with code coverage using the pcov extension.",
-    "generate": "Manually generate UUIDs in several formats.",
-    "test": "Runs the phpspec tests."
-}
 }
