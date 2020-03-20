@@ -36,6 +36,7 @@
     "require-dev": {
         "dragonrun1/git-change-log-creator": "^1.0",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3",
+        "php-coveralls/php-coveralls": "^2.2",
         "phpspec/phpspec": "^6.1",
         "roave/security-advisories": "dev-master"
     },
