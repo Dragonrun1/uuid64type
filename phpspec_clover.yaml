@@ -1,0 +1,19 @@
+code_generation: false
+stop-on-failure: true
+formatter.name: dot
+extensions:
+  FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
+    blacklist:
+      - src/Entity # No need to test one line methods.
+      - src/Type # No need to test Doctrine.
+    format:
+      - clover
+    output:
+      clover: coverage/clover.xml
+suites:
+  default:
+    namespace: Uuid64Type
+    psr4_prefix: Uuid64Type
+    spec_path: "%paths.config%/spec"
+    spec_prefix: Spec
+    src_path: "%paths.config%/src"
