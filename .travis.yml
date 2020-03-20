@@ -13,6 +13,7 @@ script:
   - composer test
 after_success:
   - composer clover
+  - ls -al coverage/
   - travis_retry php vendor/php-coveralls/php-coveralls/bin/php-coveralls -v
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
