@@ -3,7 +3,7 @@
     "description": "A custom Doctrine datatype for UUIDv4 values in database tables that offers a more compact format that can be useful for primary key columns.",
     "type": "library",
     "license": "BSD-3-Clause",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "authors": [
         {
             "name": "Michael Cummings", "email": "dragonrun1@gmail.com"
@@ -34,22 +34,23 @@
         "doctrine/orm": "^2.7"
     },
     "require-dev": {
+        "dragonrun1/git-change-log-creator": "^1.0",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3",
         "phpspec/phpspec": "^6.1",
         "roave/security-advisories": "dev-master"
     },
     "scripts": {
-        "clover": "phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_clover.yaml",
-        "coverage": "phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_coverage.yaml",
-        "coverage-pcov": "@php -d extension=pcov -d pcov.enable=1 vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_coverage.yaml",
-        "generate": "@php bin/Uuid64.php",
-        "test": "phpspec run --ansi"
+        "test": "phpspec run --ansi",
+        "uuid4:clover": "phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_clover.yaml",
+        "uuid4:coverage": "phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_coverage.yaml",
+        "uuid4:generate": "@php bin/Uuid64.php",
+        "uuid4:pcov": "@php -d extension=pcov -d pcov.enable=1 vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_coverage.yaml"
     },
     "scripts-descriptions": {
-        "clover": "Runs the phpspec tests with code coverage output to coverage/clover.xml file.",
-        "coverage": "Runs the phpspec tests with code coverage using phpdbg.",
-        "coverage-pcov": "Runs the phpspec tests with code coverage using the pcov extension.",
-        "generate": "Manually generate UUIDs in several formats.",
-        "test": "Runs the phpspec tests."
+        "test": "Runs the phpspec tests.",
+        "uuid4:clover": "Runs the phpspec tests with code coverage output to coverage/clover.xml file.",
+        "uuid4:coverage": "Runs the phpspec tests with code coverage using phpdbg.",
+        "uuid4:generate": "Generates one UUID in several formats.",
+        "uuid4:pcov": "Runs the phpspec tests with code coverage using the pcov extension."
     }
 }
