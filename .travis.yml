@@ -12,6 +12,7 @@ script:
   - mkdir -p coverage
   - composer test
 after_success:
+  - composer clover
   - composer require --dev php-coveralls/php-coveralls:dev-master
   - travis_retry php vendor/bin/coveralls -v
 after_script:
