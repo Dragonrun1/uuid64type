@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpUndefinedMethodInspection */
 declare(strict_types=1);
 /**
  * PHP version 7.3
@@ -51,23 +50,24 @@ declare(strict_types=1);
 namespace Uuid64Type;
 
 require_once __DIR__ . '/bootstrap.php';
+// This is a simple CLI utility for manually generating one UUID at a time as needed.
+//
+// Was also use for some manual testing before PHPSpec tests were added.
+//
 // Use an invokable unanimous class.
-$generator = new class {
+$result = (new class {
     use Uuid4;
+    
     public function __invoke() {
-        $bin = self::asBinString();
-        $base64 = self::asBase64($bin);
-        $hex = self::asHexString($bin);
-        $uuid4 = self::uuid($bin);
-        return [$base64, $uuid4, $hex, $bin];
+        $base64 = self::asBase64();
+        $hex = self::fromBase64ToHexString($base64);
+        $uuid = self::fromBase64ToUuid($base64);
+        return [$uuid, $hex, $base64];
     }
-};
-$result = $generator();
-//print 'binary:' . PHP_EOL;
-//print $result[3] . PHP_EOL;
+})();
 print 'uuid v4:' . PHP_EOL;
-print $result[1] . PHP_EOL;
-print 'hex:' . PHP_EOL;
-print $result[2] . PHP_EOL;
-print 'uuid64:' . PHP_EOL;
 print $result[0] . PHP_EOL;
+print 'hex:' . PHP_EOL;
+print $result[1] . PHP_EOL;
+print 'base64:' . PHP_EOL;
+print $result[2] . PHP_EOL;
