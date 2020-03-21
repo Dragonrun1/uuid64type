@@ -12,8 +12,6 @@ extensions:
       clover: coverage/clover.xml
 suites:
   default:
-    namespace: Uuid64Type
-    psr4_prefix: Uuid64Type
-    spec_path: "%paths.config%/spec"
-    spec_prefix: Spec
-    src_path: "%paths.config%/src"
+      spec_path: "%paths.config%/spec/"
+      spec_prefix: Spec
+      src_path: "%paths.config%/src"
