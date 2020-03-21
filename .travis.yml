@@ -2,16 +2,16 @@ language: php
 install:
     - composer install --no-interaction
 matrix:
-  fast_finish: true
+    fast_finish: true
 php:
-  - "7.3"
-  - "7.4"
+    - "7.3"
+    - "7.4"
 script:
-  - mkdir -p coverage
-  - composer test
+    - mkdir -p coverage
+    - composer test
 after_success:
-  - composer uuid4:clover
-  - composer require --dev php-coveralls/php-coveralls
-  - travis_retry php vendor/php-coveralls/php-coveralls/bin/php-coveralls -v
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - travis_retry php ocular.phar code-coverage:upload --format=php-clover coverage/clover.xml
+    - composer uuid4:clover
+    - composer require --dev php-coveralls/php-coveralls
+    - travis_retry php vendor/php-coveralls/php-coveralls/bin/php-coveralls -v
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - travis_retry php ocular.phar code-coverage:upload --format=php-clover coverage/clover.xml
