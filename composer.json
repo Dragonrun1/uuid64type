@@ -35,6 +35,7 @@
     },
     "require-dev": {
         "dragonrun1/git-change-log-creator": "^1.0",
+        "egabor/composer-release-plugin": "dev-master",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3",
         "phpspec/phpspec": "^6.1",
         "roave/security-advisories": "dev-master"
