@@ -112,6 +112,20 @@ format:
     where no conversions aren't required and, it doesn't use a lot of extra
     space either.
 
+## Related Projects
+
+[https://github.com/Dragonrun1/uuid64ts](https://github.com/Dragonrun1/uuid64ts)
+Started the __uuid64ts__ project as a translation from this project into
+Typescript but along the way ended up feeding back into version 2.0 as well
+after issues/bugs in the version 1.0 code had been exposed.
+
+[https://github.com/Dragonrun1/person_db_skeleton](https://github.com/Dragonrun1/person_db_skeleton)
+This project developed in parallel with this project through version 1.0.
+They both were based on noticing how many prior projects seem to have these same
+common needs for some kind of person object.
+I decided to stop reinventing over and over and instead make something that was
+easy to re-use in all future projects.
+
 ## Contributing
 
 Please note that this project has a
