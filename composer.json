@@ -1,6 +1,6 @@
 {
     "name": "dragonrun1/uuid64type",
-    "description": "A custom Doctrine datatype for UUIDv4 values in database tables that offers a more compact format that can be useful for primary key columns.",
+    "description": "An UUID v4 (random) library with a new custom compact format for use in database primary keys. It also includes helper traits to make integration easier in Doctrine.",
     "type": "library",
     "license": "BSD-3-Clause",
     "version": "2.0.2",
@@ -25,6 +25,15 @@
     "config": {
         "optimize-autoloader": true, "sort-packages": true
     },
+    "funding": [
+        {
+            "type": "ko-fi", "url": "https://ko-fi.com/dragonrun1"
+        }, {
+            "type": "liberapay", "url": "https://liberapay.com/dragonrun1/"
+        }
+    ],
+    "homepage": "https://github.com/Dragonrun1/uuid64type",
+    "readme": "https://github.com/Dragonrun1/uuid64type#README",
     "require": {
         "php-64bit": ">=7.3,<7.5",
         "ext-PDO": ">=1.0.0",
@@ -53,5 +62,9 @@
         "uuid4:coverage": "Runs the phpspec tests with code coverage using phpdbg.",
         "uuid4:generate": "Generates one UUID in several formats.",
         "uuid4:pcov": "Runs the phpspec tests with code coverage using the pcov extension."
+    },
+    "support": {
+        "issues": "https://github.com/Dragonrun1/uuid64type/issues",
+        "source": "https://github.com/Dragonrun1/uuid64type"
     }
 }
