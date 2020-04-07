@@ -52,11 +52,13 @@ declare(strict_types=1);
 namespace Uuid64Type\Entity;
 
 /**
- * Trait to help compose UUID based table primary keys.
+ * Trait to help compose UUID based table primary keys with a custom ID generator.
  *
  * Used in composition pattern vs inherits model with classes.
+ *
+ * @see Uuid64NGId
  */
-trait Uuid64Id {
+trait Uuid64CGId {
     /**
      * @return string
      */
@@ -66,7 +68,7 @@ trait Uuid64Id {
     /**
      * @var string
      *
-     * @ORM\Column(type="uuid64", nullable=false)
+     * @ORM\Column(name="id", type="uuid64", length=22, nullable=false, options={"fixed":true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Uuid64Type\Entity\Uuid64Generator")
