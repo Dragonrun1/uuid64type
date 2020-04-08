@@ -23,10 +23,14 @@
     },
     "bin": "bin/Uuid64",
     "config": {
-        "optimize-autoloader": true, "sort-packages": true
+        "optimize-autoloader": true, "platform": {
+            "php": "7.3"
+        }, "sort-packages": true
     },
     "funding": [
         {
+            "type": "github", "url": "https://github.com/sponsors/Dragonrun1"
+        }, {
             "type": "ko-fi", "url": "https://ko-fi.com/dragonrun1"
         }, {
             "type": "liberapay", "url": "https://liberapay.com/dragonrun1/"
@@ -35,7 +39,7 @@
     "homepage": "https://github.com/Dragonrun1/uuid64type",
     "readme": "https://github.com/Dragonrun1/uuid64type#README",
     "require": {
-        "php-64bit": ">=7.3,<7.5",
+        "php-64bit": "7.3.* || 7.4.*",
         "ext-PDO": ">=1.0.0",
         "ext-SPL": "*",
         "ext-mbstring": "*",
