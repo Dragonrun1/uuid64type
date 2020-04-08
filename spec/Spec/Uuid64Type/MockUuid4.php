@@ -60,7 +60,7 @@ use Uuid64Type\Uuid4;
  */
 class MockUuid4 {
     use Uuid4;
-    
+
     public function convertBase64ToHex(string $data): string {
         return static::fromBase64ToHexString($data);
     }

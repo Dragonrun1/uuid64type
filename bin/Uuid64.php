@@ -57,7 +57,7 @@ require_once __DIR__ . '/bootstrap.php';
 // Use an invokable unanimous class.
 $result = (new class {
     use Uuid4;
-    
+
     public function __invoke() {
         $base64 = self::asBase64();
         $hex = self::fromBase64ToHexString($base64);

@@ -60,6 +60,7 @@ use Uuid64Type\Uuid4;
  */
 class Uuid64Generator extends AbstractIdGenerator {
     use Uuid4;
+
     /**
      * Generates an identifier for an entity.
      *
@@ -68,10 +69,10 @@ class Uuid64Generator extends AbstractIdGenerator {
      * @param EntityManager $em
      * @param object|null   $entity
      *
-     * @return mixed
+     * @return string
      * @throws \Exception
      */
-    public function generate(EntityManager $em, $entity) {
+    public function generate(EntityManager $em, $entity): string {
         return self::asBase64();
     }
 }

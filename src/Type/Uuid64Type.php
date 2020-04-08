@@ -54,13 +54,11 @@ namespace Uuid64Type\Type;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
-use Uuid64Type\Uuid4;
 
 /**
  * Custom doctrine UUID v4 (random) datatype using custom base 64 encoding.
  */
 class Uuid64Type extends StringType {
-    use Uuid4;
     public const UUID64 = 'uuid64';
     /**
      * Converts a value from its PHP representation to its database representation
@@ -104,8 +102,9 @@ class Uuid64Type extends StringType {
      * @throws DBALException
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string {
-        $dec = \array_merge($fieldDeclaration, ['length' => 22, 'fixed' => true]);
-        return parent::getSQLDeclaration($dec, $platform);
+        $fieldDeclaration['length'] = 22;
+        $fieldDeclaration['fixed'] = true;
+        return parent::getSQLDeclaration($fieldDeclaration, $platform);
     }
     /**
      * Force SQL comment containing DC2Type so Doctrine reverse engineering works correctly.
