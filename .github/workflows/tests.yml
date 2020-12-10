@@ -59,6 +59,9 @@ jobs:
                   php -r "if(! extension_loaded('pdo_mysql')) {throw new Exception('pdo_mysql not found');}"
                   php -r "if(! extension_loaded('spl')) {throw new Exception('spl not found');}"
 
+            - name: Install Composer dependencies
+              run: composer install --prefer-dist --no-progress --no-suggest
+
             - name: Show vendor/bin directory
               run: ls -al vendor/bin/
 
