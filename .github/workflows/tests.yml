@@ -65,4 +65,4 @@ jobs:
 #                  php -r "if(ini_get('short_open_tag')!=1) {throw new Exception('short_open_tag not added');}"
 #                  php -r "if(ini_get('date.timezone')!='Asia/Kolkata') {throw new Exception('date.timezone not added');}"
             - name: Run PHPSpec
-              run: composer test
+              run: php${{ matrix.php }} vendor/bin/phpspec run --ansi
