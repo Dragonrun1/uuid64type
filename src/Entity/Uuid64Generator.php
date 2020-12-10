@@ -71,6 +71,7 @@ class Uuid64Generator extends AbstractIdGenerator {
      *
      * @return string
      * @throws \Exception
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function generate(EntityManager $em, $entity): string {
         return self::asBase64();

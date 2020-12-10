@@ -258,7 +258,7 @@ trait Uuid4 {
     protected static function fromUuidToHexString(string $data): string {
         return \str_replace('-', '', $data);
     }
-    protected static $base64 = [
+    protected static array $base64 = [
         '000000' => 'A',
         '000001' => 'B',
         '000010' => 'C',

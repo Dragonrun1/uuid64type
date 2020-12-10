@@ -3,7 +3,7 @@
     "description": "An UUID v4 (random) library with a new custom compact format for use in database primary keys. It also includes helper traits to make integration easier in Doctrine.",
     "type": "library",
     "license": "BSD-3-Clause",
-    "version": "2.0.2",
+    "version": "3.0.0",
     "authors": [
         {
             "name": "Michael Cummings", "email": "dragonrun1@gmail.com"
@@ -24,7 +24,7 @@
     "bin": "bin/Uuid64",
     "config": {
         "optimize-autoloader": true, "platform": {
-            "php": "7.3"
+            "php": "8.0"
         }, "sort-packages": true
     },
     "funding": [
@@ -39,7 +39,7 @@
     "homepage": "https://github.com/Dragonrun1/uuid64type",
     "readme": "https://github.com/Dragonrun1/uuid64type#README",
     "require": {
-        "php-64bit": "7.3.* || 7.4.*",
+        "php-64bit": "8.0.*",
         "ext-PDO": ">=1.0.0",
         "ext-SPL": "*",
         "ext-mbstring": "*",
@@ -48,10 +48,8 @@
     },
     "require-dev": {
         "dragonrun1/git-change-log-creator": "^1.0",
-        "egabor/composer-release-plugin": "dev-master",
-        "friends-of-phpspec/phpspec-code-coverage": "^4.3",
-        "phpspec/phpspec": "^6.1",
-        "roave/security-advisories": "dev-master"
+        "friends-of-phpspec/phpspec-code-coverage": "^6.0",
+        "phpspec/phpspec": "^7.0"
     },
     "scripts": {
         "test": "phpspec run --ansi",

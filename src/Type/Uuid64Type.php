@@ -68,8 +68,9 @@ class Uuid64Type extends StringType {
      * @param AbstractPlatform $platform The currently used database platform.
      *
      * @return mixed The database representation of the value.
+     * @noinspection PhpMixedReturnTypeCanBeReducedInspection
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform) {
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): mixed {
         return (string)$value;
     }
     /**
@@ -80,8 +81,9 @@ class Uuid64Type extends StringType {
      * @param AbstractPlatform $platform The currently used database platform.
      *
      * @return mixed The PHP representation of the value.
+     * @noinspection PhpMixedReturnTypeCanBeReducedInspection
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform) {
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): mixed {
         if (null === $value) {
             return null;
         }
@@ -101,10 +103,10 @@ class Uuid64Type extends StringType {
      * {@inheritdoc}
      * @throws DBALException
      */
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string {
-        $fieldDeclaration['length'] = 22;
-        $fieldDeclaration['fixed'] = true;
-        return parent::getSQLDeclaration($fieldDeclaration, $platform);
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string {
+        $column['length'] = 22;
+        $column['fixed'] = true;
+        return parent::getSQLDeclaration($column, $platform);
     }
     /**
      * Force SQL comment containing DC2Type so Doctrine reverse engineering works correctly.

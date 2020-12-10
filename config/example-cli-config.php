@@ -48,9 +48,7 @@ declare(strict_types=1);
  */
 // Your existing code ...
 require_once dirname(__DIR__, 1) . '/bin/bootstrap.php';
-use Doctrine\Common\Annotations\AnnotationException;
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
+use Doctrine\DBAL\Tools\Console\ConnectionProvider\SingleConnectionProvider;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
@@ -88,10 +86,11 @@ $dbParams = [
 //    // NOTE: if path is set the memory setting is ignore by the driver.
 //    'path'=>'my_db.sq3'
 //];
+/** @var array $paths */
 $paths = [\dirname(__DIR__, 1) . '/src/Entity'];
 try {
     $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
-} catch (AnnotationException $e) {
+} catch (Exception $e) {
     print $e->getMessage() . PHP_EOL;
     print $e->getTraceAsString();
     exit(1);
@@ -116,7 +115,7 @@ try {
          ->registerDoctrineTypeMapping($type, 'binary');
     $conn->getDatabasePlatform()
          ->markDoctrineTypeCommented($type);
-} catch (DBALException $e) {
+} catch (Exception $e) {
     print $e->getMessage() . PHP_EOL;
     print $e->getTraceAsString();
     exit(1);
@@ -126,6 +125,6 @@ try {
 return new HelperSet(
     [
         'em' => new EntityManagerHelper($em),
-        'db' => new ConnectionHelper($em->getConnection()),
+        'db' => new SingleConnectionProvider($em->getConnection()),
     ]
 );

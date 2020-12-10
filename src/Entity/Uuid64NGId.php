@@ -51,6 +51,7 @@ declare(strict_types=1);
 
 namespace Uuid64Type\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Uuid64Type\Uuid4;
 
 /**
@@ -76,5 +77,5 @@ trait Uuid64NGId {
      * @ORM\Column(name="id", type="uuid64", length=22, nullable=false, options={"fixed":true})
      * @ORM\Id
      */
-    protected $id;
+    protected string $id;
 }

@@ -51,6 +51,8 @@ declare(strict_types=1);
 
 namespace Uuid64Type\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Trait to help compose UUID based table primary keys with a custom ID generator.
  *
@@ -73,5 +75,5 @@ trait Uuid64CGId {
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Uuid64Type\Entity\Uuid64Generator")
      */
-    protected $id;
+    protected string $id;
 }
