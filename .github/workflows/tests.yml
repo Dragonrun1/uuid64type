@@ -37,11 +37,11 @@ jobs:
                   key: ${{ steps.cache-env.outputs.key }}
                   restore-keys: ${{ steps.cache-env.outputs.key }}
 
-#            - name: Setup PHP with extensions and custom config
-#              run: node dist/index.js
-#              env:
-#                  php-version: ${{ matrix.php-versions }}
-#                  extensions: ${{ env.extensions }}
+            - name: Setup PHP with extensions and custom config
+              run: node dist/index.js
+              env:
+                  php-version: ${{ matrix.php-versions }}
+                  extensions: ${{ env.extensions }}
 #                  ini-values: post_max_size=256M, short_open_tag=On, date.timezone=Asia/Kolkata
 
             - name: Testing PHP version
