@@ -8,7 +8,7 @@ on:
             - 'doc/**'
 jobs:
     run:
-        name: Run PHPSpec
+        name: PHP ${{ matrix.php-versions }} Spec on ${{ matrix.operating-system }}
         runs-on: ${{ matrix.operating-system }}
         strategy:
             fail-fast: false
@@ -17,14 +17,14 @@ jobs:
                 php-versions: ['8.0', '8.1']
         env:
             extensions: mbstring, pdo, pdo_mysql, spl
-            key: cache-v3
+            key: cache-v1
         steps:
             - name: Checkout
               uses: actions/checkout@v2
 
             - name: Setup cache environment
               id: cache-env
-              uses: shivammathur/cache-extensions@develop
+              uses: shivammathur/cache-extensions@v1
               with:
                   php-version: ${{ matrix.php-versions }}
                   extensions: ${{ env.extensions }}
@@ -37,12 +37,11 @@ jobs:
                   key: ${{ steps.cache-env.outputs.key }}
                   restore-keys: ${{ steps.cache-env.outputs.key }}
 
-            - name: Setup PHP with extensions and custom config
-              run: node dist/index.js
-              env:
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
                   php-version: ${{ matrix.php-versions }}
                   extensions: ${{ env.extensions }}
-#                  ini-values: post_max_size=256M, short_open_tag=On, date.timezone=Asia/Kolkata
 
             - name: Testing PHP version
               run: |
