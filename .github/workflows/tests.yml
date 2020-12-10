@@ -58,11 +58,9 @@ jobs:
                   php -r "if(! extension_loaded('pdo')) {throw new Exception('pdo not found');}"
                   php -r "if(! extension_loaded('pdo_mysql')) {throw new Exception('pdo_mysql not found');}"
                   php -r "if(! extension_loaded('spl')) {throw new Exception('spl not found');}"
-#            - name: Testing ini values
-#              run: |
-#                  php -r "if(ini_get('memory_limit')!='-1') {throw new Exception('memory_limit not disabled');}"
-#                  php -r "if(ini_get('post_max_size')!='256M') {throw new Exception('post_max_size not added');}"
-#                  php -r "if(ini_get('short_open_tag')!=1) {throw new Exception('short_open_tag not added');}"
-#                  php -r "if(ini_get('date.timezone')!='Asia/Kolkata') {throw new Exception('date.timezone not added');}"
+
+            - name: Show vendor/bin directory
+              run: ls -al vendor/bin/
+
             - name: Run PHPSpec
               run: php${{ matrix.php }} vendor/bin/phpspec run --ansi
