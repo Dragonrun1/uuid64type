@@ -62,8 +62,5 @@ jobs:
             - name: Install Composer dependencies
               run: composer install --prefer-dist --no-progress --no-suggest
 
-            - name: Show vendor/bin directory
-              run: ls -al vendor/bin/
-
             - name: Run PHPSpec
               run: php${{ matrix.php }} vendor/bin/phpspec run --ansi
