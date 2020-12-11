@@ -47,10 +47,12 @@ jobs:
               run: |
                   php -v
                   php -r "if(strpos(phpversion(), '${{ matrix.php-versions }}') === false) {throw new Exception('Wrong PHP version Installed');}"
+
             - name: Testing Composer version
               run: |
                   composer -V
                   php -r "if(strpos(@exec('composer -V'), 'Composer version') === false) {throw new Exception('Composer not found');}"
+
             - name: Testing Extensions
               run: |
                   php -m
@@ -68,16 +70,35 @@ jobs:
         name: Code coverage
         needs: test
         runs-on: ubuntu-20.04
+        env:
+            extensions: mbstring, pdo, pdo_mysql, spl
         steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '7.4'
+                  extensions: ${{ env.extensions }}
+
+            - name: Install Composer dependencies
+              run: composer install --prefer-dist --no-progress --no-suggest
+
             - name: Create coverage directory
               run: mkdir -p coverage
+
             - name: PHPSpec clover run with phpdbg
               run: phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_clover.yaml
+
             - name: Grab coveralls
               run: composer require --dev php-coveralls/php-coveralls
+
             - name: Run coveralls
               run: php vendor/php-coveralls/php-coveralls/bin/php-coveralls -v
+
             - name: Get scrutinizer ocular
               run: wget https://scrutinizer-ci.com/ocular.phar
+
             - name: Run ocular
               run: php ocular.phar code-coverage:upload --format=php-clover coverage/clover.xml
