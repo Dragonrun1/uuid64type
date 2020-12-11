@@ -8,6 +8,15 @@ An UUID v4 (random) library with a new custom compact format for use in database
 primary keys.
 It also includes helper traits to make integration easier in Doctrine.
 
+## Table Of Contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Why make this project?](#why-make-this-project)
+* [Related Projects](#related-projects)
+* [Contributing](#contributing)
+* [Licenses](#licenses)
+
 ## Installation
 
 Use [composer](https://getcomposer.org/download/) to install from
@@ -25,14 +34,14 @@ For an example of integrating with Doctrine cli configuration have a look at:
 
 For examples of using Uuid64Type in a Doctrine project see my related project on
 github:
+[person_db_skeleton]
 
-[person_db_skeleton](https://github.com/Dragonrun1/person_db_skeleton)
+Have a look at the `config/cli-config.php` in the skeleton project for how to
+register the custom type in Doctrine or the `config/example-cli-config.php` in
+this project.
 
-Have a look at the `config/cli-config.php` for how to register the custom type
-in Doctrine.
-
-See one of the `src/Model/Entities/*` table class files for using the helper
-traits etc.
+See one of the `src/Model/Entities/*` table class files in the skeleton project
+for how to use the helper traits etc.
 
 ## Why make this project?
 
@@ -100,7 +109,7 @@ format:
   * URL compatible - Doesn't contain any chars that require special
     escaping in URLs.
   * HTML compatible - Doesn't include any special chars that need to be escaped
-    when used in html forms or tag property values. HTML 5 relaxed the rule
+    when used in html forms or tag property values. HTML 5 has relaxed the rule
     requiring all ID property values to start with a letter.
   * More Human readable - Since base 64 is shorter that other formats most
     people find it easier to read.
@@ -109,7 +118,7 @@ format:
     when using it in URLs etc. which can cause un-needed server load
     issues. The normal and hexadecimal forms are both longer which adds
     to both memory and server load issues. The custom format hits the sweet spot
-    where no conversions aren't required and, it doesn't use a lot of extra
+    where no conversions are required and, it doesn't use a lot of extra
     space either.
 
 ## Related Projects
@@ -128,40 +137,43 @@ easy to re-use in all future projects.
 
 ## Contributing
 
-Please note that this project has a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md).
+Contributors are welcome.
+Please note that this project has a [Contributor Covenant Code of Conduct].
 By participating in this project you agree to abide by its terms.
+
+All intentionally contributed code will be considered to also be contributed
+under the same [BSD-3-Clause] license without any additional terms or
+conditions.
+Please include your information in a comment on all code files for the copyright
+etc.
+
+All intentionally contributed documentation or non-code text like this README
+etc. will be considered to be contributed under the same [CC-BY-SA] license
+without any additional terms or conditions.
 
 Pull requests are always welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
 Please make sure to update or add tests as appropriate.
 
-## License
-[BSD-3-Clause](https://spdx.org/licenses/BSD-3-Clause.html)
+## Licenses
 
-Copyright (c) 2019 Michael Cummings. All rights reserved.
+All code is licensed under the [BSD-3-Clause] license.
+You can find a copy of the license in the [LICENSE-BSD] file.
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+All documentation like this README is licensed under
+Creative Commons Attribution-ShareAlike 4.0 International License (CC-BY-SA).
+You can find a copy of the [CC-BY-SA] license in the [LICENSE-CC-BY-SA] file.
 
-1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright notice,
- this list of conditions and the following disclaimer in the documentation
- and/or other materials provided with the distribution.
-3. Neither the name of the copyright holder nor the names of its
-contributors may be used to endorse or promote products derived from this
-software without specific prior written permission.
+[BSD-3-Clause]: https://spdx.org/licenses/BSD-3-Clause.html
+[CC-BY-SA]: http://creativecommons.org/licenses/by-sa/4.0/
+[Contributor Covenant Code of Conduct]: CODE_OF_CONDUCT.md
+[LICENSE-BSD]: LICENSE-BSD
+[LICENSE-CC-BY-SA]: LICENSE-CC-BY-SA
+[person_db_skeleton]: https://github.com/Dragonrun1/person_db_skeleton
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+<hr>
+Copyright &copy; 2019-present, Michael Cummings<br/>
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+</a>

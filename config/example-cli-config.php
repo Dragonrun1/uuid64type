@@ -2,13 +2,13 @@
 declare(strict_types=1);
 /**
  *
- * PHP version 7.3
+ * PHP version 8.0
  *
  * LICENSE:
  * This file is part of person_db_skeleton which is a set of skeleton database
  * tables for people and common associated data.
  *
- * Copyright (C) 2019 Michael Cummings. All rights reserved.
+ * Copyright (C) 2019-present Michael Cummings. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -43,7 +43,7 @@ declare(strict_types=1);
  * You should be able to find a copy of this license in the LICENSE file.
  *
  * @author    Michael Cummings <mgcummings@yahoo.com>
- * @copyright 2019 Michael Cummings
+ * @copyright 2019-present Michael Cummings
  * @license   BSD-3-Clause
  */
 // Your existing code ...

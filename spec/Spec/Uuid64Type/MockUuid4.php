@@ -5,14 +5,14 @@ declare(strict_types=1);
 /**
  * Contains class MockUuid4.
  *
- * PHP version 7.3
+ * PHP version 8.0
  *
  * LICENSE:
  * This file is part of Uuid64Type which is a custom Doctrine datatype for
  * UUIDv4 (random) values in MySQL database tables that offers a more compact
  * format that can be useful for primary key columns, etc.
  *
- * Copyright (C) 2020 Michael Cummings. All rights reserved.
+ * Copyright (C) 2020-present Michael Cummings. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -47,7 +47,7 @@ declare(strict_types=1);
  * You should be able to find a copy of this license in the LICENSE file.
  *
  * @author    Michael Cummings <mgcummings@yahoo.com>
- * @copyright 2020 Michael Cummings
+ * @copyright 2020-present Michael Cummings
  * @license   BSD-3-Clause
  */
 

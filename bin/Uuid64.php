@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 /**
- * PHP version 7.3
+ * PHP version 8.0
  *
  * LICENSE:
  * This file is part of Uuid64Type which is a custom Doctrine datatype for
  * UUIDv4 (random) values in MySQL database tables that offers a more compact
  * format that can be useful for primary key columns, etc.
  *
- * Copyright (C) 2019 Michael Cummings. All rights reserved.
+ * Copyright (C) 2019-present Michael Cummings. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -58,6 +58,9 @@ require_once __DIR__ . '/bootstrap.php';
 $result = (new class {
     use Uuid4;
 
+    /**
+     * @return string[]
+     */
     public function __invoke(): array {
         $base64 = self::asBase64();
         $hex = self::fromBase64ToHexString($base64);
