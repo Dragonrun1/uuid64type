@@ -7,7 +7,7 @@ on:
             - '**.md'
             - 'doc/**'
 jobs:
-    run:
+    test:
         name: PHP ${{ matrix.php-versions }} Spec on ${{ matrix.operating-system }}
         runs-on: ${{ matrix.operating-system }}
         strategy:
@@ -64,3 +64,20 @@ jobs:
 
             - name: Run PHPSpec
               run: php${{ matrix.php }} vendor/bin/phpspec run --ansi
+    coverage:
+        name: Code coverage
+        needs: test
+        runs-on: ubuntu-20.04
+        steps:
+            - name: Create coverage directory
+              run: mkdir -p coverage
+            - name: PHPSpec clover run with phpdbg
+              run: phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_clover.yaml
+            - name: Grab coveralls
+              run: composer require --dev php-coveralls/php-coveralls
+            - name: Run coveralls
+              run: php vendor/php-coveralls/php-coveralls/bin/php-coveralls -v
+            - name: Get scrutinizer ocular
+              run: wget https://scrutinizer-ci.com/ocular.phar
+            - name: Run ocular
+              run: php ocular.phar code-coverage:upload --format=php-clover coverage/clover.xml
