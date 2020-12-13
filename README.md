@@ -1,6 +1,7 @@
 # Uuid64Type
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
+![Tests](https://github.com/Dragonrun1/uuid64type/workflows/Tests/badge.svg?branch=main)
 [![Coverage Status](https://coveralls.io/repos/github/Dragonrun1/uuid64type/badge.svg?branch=main)](https://coveralls.io/github/Dragonrun1/uuid64type?branch=main)
 
 [comment]: <> ([![Scrutinizer Code Quality]&#40;https://scrutinizer-ci.com/g/Dragonrun1/uuid64type/badges/quality-score.png?b=master&#41;]&#40;https://scrutinizer-ci.com/g/Dragonrun1/uuid64type/?branch=master&#41;)
