@@ -1,8 +1,10 @@
 # Uuid64Type
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Dragonrun1/uuid64type/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Dragonrun1/uuid64type/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/Dragonrun1/uuid64type/badge.svg?branch=master)](https://coveralls.io/github/Dragonrun1/uuid64type?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Dragonrun1/uuid64type/badge.svg?branch=main)](https://coveralls.io/github/Dragonrun1/uuid64type?branch=main)
+
+[comment]: <> ([![Scrutinizer Code Quality]&#40;https://scrutinizer-ci.com/g/Dragonrun1/uuid64type/badges/quality-score.png?b=master&#41;]&#40;https://scrutinizer-ci.com/g/Dragonrun1/uuid64type/?branch=master&#41;)
+[comment]: <> ([![Coverage Status]&#40;https://coveralls.io/repos/github/Dragonrun1/uuid64type/badge.svg?branch=master&#41;]&#40;https://coveralls.io/github/Dragonrun1/uuid64type?branch=master&#41;)
 
 An UUID v4 (random) library with a new custom compact format for use in database
 primary keys.
@@ -153,14 +155,12 @@ without any additional terms or conditions.
 
 Pull requests are always welcome. For major changes, please open an issue first
 to discuss what you would like to change.
-
 Please make sure to update or add tests as appropriate.
 
 ## Licenses
 
 All code is licensed under the [BSD-3-Clause] license.
 You can find a copy of the license in the [LICENSE-BSD] file.
-
 All documentation like this README is licensed under
 Creative Commons Attribution-ShareAlike 4.0 International License (CC-BY-SA).
 You can find a copy of the [CC-BY-SA] license in the [LICENSE-CC-BY-SA] file.

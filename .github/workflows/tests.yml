@@ -98,7 +98,7 @@ jobs:
                   composer global require --no-progress --no-suggest php-coveralls/php-coveralls
                   php-coveralls --coverage_clover=coverage/clover.xml -v
 
-            - name: Upload coverage to Scrutinizer
-              run: |
-                    wget https://scrutinizer-ci.com/ocular.phar
-                    php ocular.phar code-coverage:upload --format=php-clover coverage/clover.xml
+#            - name: Upload coverage to Scrutinizer
+#              run: |
+#                    wget -nv https://scrutinizer-ci.com/ocular.phar
+#                    php ocular.phar code-coverage:upload --format=php-clover coverage/clover.xml
