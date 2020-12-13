@@ -91,9 +91,9 @@ jobs:
             - name: PHPSpec clover run with phpdbg
               run: phpdbg -qrr vendor/phpspec/phpspec/bin/phpspec run --ansi --config phpspec_clover.yaml
 
-            - name: Upload coverage results to Coveralls.
+            - name: Upload coverage results to Coveralls
               env:
-                  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS }}
+                  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   composer global require --no-progress --no-suggest php-coveralls/php-coveralls
                   php-coveralls --coverage_clover=coverage/clover.xml -v
