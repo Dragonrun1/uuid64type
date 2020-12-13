@@ -1,11 +1,10 @@
 # Uuid64Type
 
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 ![Tests](https://github.com/Dragonrun1/uuid64type/workflows/Tests/badge.svg?branch=main)
 [![Coverage Status](https://coveralls.io/repos/github/Dragonrun1/uuid64type/badge.svg?branch=main)](https://coveralls.io/github/Dragonrun1/uuid64type?branch=main)
 
 [comment]: <> ([![Scrutinizer Code Quality]&#40;https://scrutinizer-ci.com/g/Dragonrun1/uuid64type/badges/quality-score.png?b=master&#41;]&#40;https://scrutinizer-ci.com/g/Dragonrun1/uuid64type/?branch=master&#41;)
-[comment]: <> ([![Coverage Status]&#40;https://coveralls.io/repos/github/Dragonrun1/uuid64type/badge.svg?branch=master&#41;]&#40;https://coveralls.io/github/Dragonrun1/uuid64type?branch=master&#41;)
 
 An UUID v4 (random) library with a new custom compact format for use in database
 primary keys.

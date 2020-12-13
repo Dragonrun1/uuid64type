@@ -59,8 +59,8 @@ trait Uuid4 {
      * Generate a custom base 64 encoded UUID v4 (random).
      *
      *
-     * @param array|null $data  Should normally be `null` to create a truly
-     *                          random v4 UUID.
+     * @param array<string>|null $data Should normally be `null` to create a
+     *                                 truly random v4 UUID.
      *
      * @return string  Returns a custom base 64 encoded UUID v4.
      * @throws \Exception
@@ -77,7 +77,7 @@ trait Uuid4 {
     /**
      * Helper method for the common parts of creating new UUID in binary form.
      *
-     * @param array|null $data  Should normally be `null` to create a truly
+     * @param array<string>|null $data  Should normally be `null` to create a truly
      *                          random v4 UUID.
      *
      * @return string
@@ -106,7 +106,7 @@ trait Uuid4 {
     /**
      * Generate a hexadecimal encoded UUID v4 (random).
      *
-     * @param array|null $data Should normally be `null` to create a truly
+     * @param array<string>|null $data Should normally be `null` to create a truly
      *                         random v4 UUID.
      *
      * @return string Returns a hexadecimal encoded UUID v4.
@@ -135,7 +135,7 @@ trait Uuid4 {
      *
      * Many other changes since the above code and changes.
      *
-     * @param array|null $data  Should normally be `null` to create a truly
+     * @param array<string>|null $data  Should normally be `null` to create a truly
      *                          random v4 UUID.
      *
      * @return string Returns a standard UUID v4.
@@ -258,6 +258,9 @@ trait Uuid4 {
     protected static function fromUuidToHexString(string $data): string {
         return \str_replace('-', '', $data);
     }
+    /**
+     * @var string[]
+     */
     protected static array $base64 = [
         '000000' => 'A',
         '000001' => 'B',

@@ -43,7 +43,7 @@ declare(strict_types=1);
  * You should be able to find a copy of this license in the LICENSE file.
  *
  * @author    Michael Cummings <mgcummings@yahoo.com>
- * @copyright 2019 Michael Cummings
+ * @copyright 2019-present Michael Cummings
  * @license   BSD-3-Clause
  */
 

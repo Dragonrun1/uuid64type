@@ -62,6 +62,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait Uuid64CGId {
     /**
+     * @api
      * @return string
      */
     public function getId(): string {

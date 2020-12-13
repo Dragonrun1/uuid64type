@@ -64,6 +64,7 @@ class Uuid64Type extends StringType {
      * Converts a value from its PHP representation to its database representation
      * of this type.
      *
+     * @api
      * @param mixed            $value    The value to convert.
      * @param AbstractPlatform $platform The currently used database platform.
      *
@@ -77,6 +78,7 @@ class Uuid64Type extends StringType {
      * Converts a value from its database representation to its PHP representation
      * of this type.
      *
+     * @api
      * @param mixed            $value    The value to convert.
      * @param AbstractPlatform $platform The currently used database platform.
      *
@@ -94,6 +96,7 @@ class Uuid64Type extends StringType {
      *
      * This is the name you will need in Doctrine ORM to use the type.
      *
+     * @api
      * @return string
      */
     public function getName(): string {

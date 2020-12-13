@@ -66,6 +66,7 @@ trait Uuid64NGId {
     use Uuid4;
 
     /**
+     * @api
      * @return string
      */
     public function getId(): string {
